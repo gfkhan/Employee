@@ -2,4 +2,5 @@
   <Project Path="Employee.ConsoleApp/Employee.ConsoleApp.csproj" />
   <Project Path="Employee.Data/Employee.Data.csproj" />
   <Project Path="Employee.Service/Employee.Service.csproj" />
+  <Project Path="Employee.Api/Employee.Api.csproj" />
 </Solution>
