@@ -31,6 +31,8 @@ namespace Employee.Data
                 entity.Property(e => e.CreatedDate).IsRequired();
                 entity.Property(e => e.CreatedBy).HasMaxLength(100);
                 entity.Property(e => e.UpdatedBy).HasMaxLength(100);
+                entity.Property(e => e.HourlyRate).HasPrecision(18, 2);
+
             });
 
             // Discriminator / TPH mapping for derived types

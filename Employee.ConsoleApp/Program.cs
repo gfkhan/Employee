@@ -36,6 +36,18 @@ try
     db.Database.Migrate();
 
     // Seed only if empty
+    CreateSampleEmployeesIfNoneExist(db);
+}
+catch (Exception ex)
+{
+    // Print full exception so you can paste it here if there is still a problem
+    Console.WriteLine("Error during migration/seeding:");
+    Console.WriteLine(ex.ToString());
+    throw;
+}
+
+static void CreateSampleEmployeesIfNoneExist(ApplicationDbContext db)
+{
     if (!db.Employees.Any())
     {
         var now = DateTime.UtcNow;
@@ -100,15 +112,4 @@ try
 
         Console.WriteLine($"Seeded {seedEmployees.Count} employee records.");
     }
-    else
-    {
-        Console.WriteLine("Employees table already contains data; seeding skipped.");
-    }
-}
-catch (Exception ex)
-{
-    // Print full exception so you can paste it here if there is still a problem
-    Console.WriteLine("Error during migration/seeding:");
-    Console.WriteLine(ex.ToString());
-    throw;
 }
