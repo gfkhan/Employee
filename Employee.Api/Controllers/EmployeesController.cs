@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Employee.Data;
-using Employee.Data.Models;
+using AutoMapper;
+using Employee.Service.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 // alias the model to avoid collision with the 'Employee' namespace
-using EmployeeModel = Employee.Data.Models.Employee;
+using EmployeeDTO = Employee.Service.Models.Employee;
 
 namespace Employee.Api.Controllers
 {
@@ -14,26 +13,28 @@ namespace Employee.Api.Controllers
     [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IEmployeeService _employeeService;
+        private readonly IMapper _mapper;
 
-        public EmployeesController(ApplicationDbContext db)
+        public EmployeesController(IEmployeeService employeeService, IMapper mapper)
         {
-            _db = db;
+            _employeeService = employeeService;
+            _mapper = mapper;
         }
 
         // GET: api/employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetAll()
         {
-            var employees = await _db.Employees.AsNoTracking().ToListAsync();
+            var employees = await _employeeService.GetAllAsync();
             return Ok(employees);
         }
 
         // GET: api/employees/{id}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<EmployeeModel>> GetById(int id)
+        public async Task<ActionResult<EmployeeDTO>> GetById(int id)
         {
-            var employee = await _db.Employees.FindAsync(id);
+            var employee = await _employeeService.GetByIdAsync(id);
             if (employee is null) return NotFound();
             return Ok(employee);
         }
