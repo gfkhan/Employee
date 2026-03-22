@@ -14,7 +14,7 @@ namespace Employee.Service.Models
         public DateTime HireDate { get; set; }
         public string JobTitle { get; set; }
         public decimal HourlyRate { get; set; }
-        // Additional properties can be added as needed
+        public EmplyeeType EmplyeeType { get; set; }
 
         public abstract decimal CalculateSalary();
     }
