@@ -1,0 +1,15 @@
+@page "/"
+
+<PageTitle>Employee App</PageTitle>
+
+<h1>Welcome to the Employee Portal</h1>
+
+<AuthorizeView>
+    <Authorized>
+        <p>Hello, @context.User.Identity?.Name! You are signed in.</p>
+        <p><a href="employees">View Employees</a></p>
+    </Authorized>
+    <NotAuthorized>
+        <p>Please sign in to access the application.</p>
+    </NotAuthorized>
+</AuthorizeView>

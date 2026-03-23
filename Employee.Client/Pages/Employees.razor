@@ -1,0 +1,76 @@
+@page "/employees"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@attribute [Authorize]
+@inject HttpClient Http
+
+<PageTitle>Employees</PageTitle>
+
+<h1>Employees</h1>
+
+@if (_errorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong> @_errorMessage
+    </div>
+}
+else if (_employees is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (_employees.Length == 0)
+{
+    <p>No employees found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Job Title</th>
+                <th>Hourly Rate</th>
+                <th>Hire Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in _employees)
+            {
+                <tr>
+                    <td>@emp.Id</td>
+                    <td>@emp.FirstName @emp.LastName</td>
+                    <td>@emp.Email</td>
+                    <td>@emp.PhoneNumber</td>
+                    <td>@emp.JobTitle</td>
+                    <td>@emp.HourlyRate.ToString("C")</td>
+                    <td>@emp.HireDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private EmployeeDto[]? _employees;
+    private string? _errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // The named HttpClient auto-attaches the Bearer token
+            _employees = await Http.GetFromJsonAsync<EmployeeDto[]>("api/employees");
+        }
+        catch (AccessTokenNotAvailableException ex)
+        {
+            // Token expired or missing — redirect to login
+            ex.Redirect();
+        }
+        catch (HttpRequestException ex)
+        {
+            _errorMessage = $"Failed to load employees: {ex.Message}";
+        }
+    }
+}
