@@ -1,3 +1,5 @@
+using System.Xml.Serialization;
+
 namespace Employee.Client.Models;
 
 /// <summary>
@@ -5,9 +7,16 @@ namespace Employee.Client.Models;
 /// </summary>
 public class AddressDto
 {
+    [XmlIgnore]
     public int Id { get; set; }
+
+    [XmlIgnore]
     public int EmployeeId { get; set; }
+
+    [XmlIgnore]
     public int AddressTypeId { get; set; }
+
+    [XmlElement("AddressType")]
     public string? AddressTypeName { get; set; }
     public string? Street { get; set; }
     public string? City { get; set; }
