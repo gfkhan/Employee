@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Employee.Data.Models
 {
@@ -12,5 +13,8 @@ namespace Employee.Data.Models
         public DateTime HireDate { get; set; }
         public string? JobTitle { get; set; }
         public decimal HourlyRate { get; set; }
+
+        // Navigation property — one employee can have many addresses
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
     }
 }

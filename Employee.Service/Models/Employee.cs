@@ -16,6 +16,11 @@ namespace Employee.Service.Models
         public decimal HourlyRate { get; set; }
         // Additional properties can be added as needed
 
+        /// <summary>
+        /// Addresses associated with this employee.
+        /// </summary>
+        public List<AddressDto> Addresses { get; set; } = new();
+
         public abstract decimal CalculateSalary();
     }
 }

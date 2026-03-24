@@ -10,6 +10,11 @@ namespace Employee.Service.Mapping
     {
         public EmployeeMappingProfile()
         {
+            // Address mapping: Data → Service DTO
+            CreateMap<DataModels.Address, ServiceModels.AddressDto>()
+                .ForMember(dest => dest.AddressTypeName,
+                           opt => opt.MapFrom(src => src.AddressType.Name));
+
             // Base mapping with polymorphic includes
             CreateMap<DataModels.Employee, ServiceModels.FullTimeEmployee>();
 

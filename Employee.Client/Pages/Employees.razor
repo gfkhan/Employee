@@ -33,6 +33,7 @@ else
                 <th>Job Title</th>
                 <th>Hourly Rate</th>
                 <th>Hire Date</th>
+                <th>Addresses</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +47,24 @@ else
                     <td>@emp.JobTitle</td>
                     <td>@emp.HourlyRate.ToString("C")</td>
                     <td>@emp.HireDate.ToShortDateString()</td>
+                    <td>
+                        @if (emp.Addresses is { Count: > 0 })
+                        {
+                            <ul class="list-unstyled mb-0">
+                                @foreach (var addr in emp.Addresses)
+                                {
+                                    <li>
+                                        <strong>@addr.AddressTypeName:</strong>
+                                        @addr.Street, @addr.City, @addr.State @addr.ZipCode, @addr.Country
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
