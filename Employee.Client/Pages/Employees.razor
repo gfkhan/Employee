@@ -149,9 +149,6 @@ else
     [XmlRoot("Employees")]
     public class EmployeeListXml
     {
-        // The List<T> is a public property of the root class.
-        //[XmlArray("Books")] // Optional: Renames the array container element to "Books"
-       // [XmlArrayItem("Book")] // Optional: Renames each item element to "Book"
         [XmlElement("Employee")]
         public List<EmployeeDto> Employees { get; set; } = new();
     }
