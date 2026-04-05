@@ -16,6 +16,5 @@ public class EmployeeDto
     /// <summary>
     /// Addresses associated with this employee.
     /// </summary>
-    [XmlElement("Address")]
     public List<AddressDto> Addresses { get; set; } = new();
 }

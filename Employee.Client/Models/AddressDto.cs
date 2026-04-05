@@ -1,21 +1,22 @@
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace Employee.Client.Models;
 
-/// <summary>
+/// <summary>   
 /// Client-side DTO for an employee address.
 /// </summary>
 public class AddressDto
 {
-    [XmlIgnore]
+    [JsonIgnore]
     public int Id { get; set; }
 
-    [XmlIgnore]
+    [JsonIgnore]
     public int EmployeeId { get; set; }
 
-    [XmlIgnore]
+    [JsonIgnore]
     public int AddressTypeId { get; set; }
-    [XmlElement("AddressType")]
+    [JsonPropertyName("addressType")]
     public string? AddressTypeName { get; set; }
     public string? Street { get; set; }
     public string? City { get; set; }
