@@ -29,6 +29,7 @@ namespace Employee.Data
                 entity.Property(e => e.Email).HasMaxLength(200);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(50);
                 entity.Property(e => e.JobTitle).HasMaxLength(150);
+                entity.Property(e => e.HourlyRate).HasPrecision(18, 2);
 
                 entity.Property(e => e.CreatedDate).IsRequired();
                 entity.Property(e => e.CreatedBy).HasMaxLength(100);
